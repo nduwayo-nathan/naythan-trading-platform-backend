@@ -15,6 +15,9 @@ public class AuthService {
     private AuthRepository authRepository;
 
     public ResponseEntity<User> register(User user){
+        User newUser= new User();
+        user.getTwoFactorAuth().setEnabled(user.getTwoFactorAuth().isEnabled());
+        user.getTwoFactorAuth().setSendTo(user.getTwoFactorAuth().getSendTo());
         User savedUser =  authRepository.save(user);
          return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
